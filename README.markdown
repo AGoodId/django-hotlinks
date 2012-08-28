@@ -18,9 +18,9 @@ linking like this:
 
 Then, whenever you want to link to those models you can write links as:
 
-    Link to get_absolute_url function [yourapp_yourmodel_1]
-    Link to another function [yourapp_yourmodel_1:your_function]
-    Link to a function with arguments [yourapp_yourmodel_1:your_function:argument]
+    Link to get_absolute_url function [yourapp.yourmodel.1]
+    Link to another function [yourapp.yourmodel.1:your_function]
+    Link to a function with arguments [yourapp.yourmodel.1:your_function:argument]
 
 And in your template use the hotlinks filter to transform them into HTML links:
 
