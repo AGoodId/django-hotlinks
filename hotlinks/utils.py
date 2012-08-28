@@ -16,7 +16,7 @@ class RegistrationError(Exception):
         return repr(self.value)
 
 
-def register(model, attr='get_absolute_url'):
+def register(model, attr='get_absolute_url', prefix=''):
     if not hasattr(model, attr):
         raise RegistrationError('No such function for the model %s: %s' % (
             unicode(model), attr))
@@ -24,7 +24,7 @@ def register(model, attr='get_absolute_url'):
 
     model_name = "%s.%s" % (model._meta.app_label, model._meta.module_name)
     key = "%s.%s" % (model_name, attr)
-    REGISTRY[key] = (model, attr)
+    REGISTRY[key] = (model, attr, prefix)
 
 
 def reverse_hotlink(hotlink):
@@ -44,20 +44,20 @@ def reverse_hotlink(hotlink):
 
     key = "%s.%s" % (model_name, attr)
     try:
-        model, attr = REGISTRY[key]
+        model, attr, prefix = REGISTRY[key]
         try:
             instance = model.objects.get(pk=pk)
             func_or_prop = getattr(instance, attr)
             if arg:
                 try:
-                    return func_or_prop(int(arg))
+                    return prefix + unicode(func_or_prop(int(arg)))
                 except ValueError:
-                    return func_or_prop(arg)
+                    return prefix + unicode(func_or_prop(arg))
             else:
                 if hasattr(func_or_prop, '__call__'):
-                    return func_or_prop()
+                    return prefix + unicode(func_or_prop())
                 else:
-                    return func_or_prop
+                    return prefix + unicode(func_or_prop)
         except model.DoesNotExist:
             return None
     except KeyError:
