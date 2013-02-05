@@ -60,7 +60,7 @@ def reverse_hotlink(hotlink):
                     return prefix + unicode(func_or_prop)
         except model.DoesNotExist:
             return None
-    except KeyError:
+    except:
         return None
 
 
