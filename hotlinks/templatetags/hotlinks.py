@@ -5,7 +5,7 @@ from django.template import Library
 from ..utils import reverse_hotlinks
 
 register = Library()
-hotlinks_regex = re.compile(r'\[(\w+.\w+.\d+[^\[\]]*)\]')
+hotlinks_regex = re.compile(r'\[(\w+\.\w+\.\d+[^\[\]]*)\]')
 
 @register.filter
 def hotlinks(content):

@@ -3,9 +3,9 @@ from collections import namedtuple, defaultdict
 
 
 REGISTRY = {}
-hotlink_with_arg = re.compile(r"(\w+.\w+).(\d+):(\w+):(.*)")
-hotlink_with_attr = re.compile(r"(\w+.\w+).(\d+):(\w+)")
-hotlink_base = re.compile(r"(\w+.\w+).(\d+)")
+hotlink_with_arg = re.compile(r"(\w+\.\w+)\.(\d+):(\w+):(.*)")
+hotlink_with_attr = re.compile(r"(\w+\.\w+)\.(\d+):(\w+)")
+hotlink_base = re.compile(r"(\w+\.\w+)\.(\d+)")
 
 Hotlink = namedtuple('Hotlink', 'model_name pk attr arg')
 
