@@ -1,4 +1,5 @@
 import re
+import django
 from collections import namedtuple, defaultdict
 
 
@@ -23,8 +24,10 @@ def register(model, attr='get_absolute_url', prefix=''):
         raise RegistrationError('No such function for the model %s: %s' % (
             unicode(model), attr))
 
-
-    model_name = "%s.%s" % (model._meta.app_label, model._meta.module_name)
+    if django.VERSION < (1, 7):
+      model_name = "%s.%s" % (model._meta.app_label, model._meta.module_name)
+    else:
+      model_name = "%s.%s" % (model._meta.app_label, model._meta.model_name)
     key = "%s.%s" % (model_name, attr)
     REGISTRY[key] = (model, attr, prefix)
 
